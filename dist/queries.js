@@ -1,8 +1,30 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useBulkQuery = void 0;
+exports.useBulkQuery = exports.useBulkIndividualQuery = void 0;
 var react_1 = require("react");
 var react_query_1 = require("@tanstack/react-query");
+var useBulkIndividualQuery = function (queryKey, queryFn, bulkQueryOptions, customOptions) {
+    var bulkQueryKey = bulkQueryOptions.queryKey;
+    var queryClient = (0, react_query_1.useQueryClient)();
+    var bulkQueryState = queryClient.getQueryState(bulkQueryKey);
+    var enabledByBulkState = (bulkQueryState === null || bulkQueryState === void 0 ? void 0 : bulkQueryState.status) !== 'loading' ||
+        !!(bulkQueryState === null || bulkQueryState === void 0 ? void 0 : bulkQueryState.dataUpdateCount) ||
+        !!(bulkQueryState === null || bulkQueryState === void 0 ? void 0 : bulkQueryState.errorUpdateCount);
+    var queryResult = (0, react_query_1.useQuery)(queryKey, queryFn, __assign(__assign({}, customOptions), { enabled: enabledByBulkState && (customOptions === null || customOptions === void 0 ? void 0 : customOptions.enabled) }));
+    return queryResult;
+};
+exports.useBulkIndividualQuery = useBulkIndividualQuery;
 var useBulkQuery = function (queryKey, queryFn, inidividualQueryOptions, customOptions) {
     var _a = (customOptions !== null && customOptions !== void 0 ? customOptions : {}).enabled, enabled = _a === void 0 ? true : _a;
     var individualQueryKeys = inidividualQueryOptions.queryKeys, individualQueryDataAccessorFn = inidividualQueryOptions.accessorFn;

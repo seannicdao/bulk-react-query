@@ -7,6 +7,30 @@ import {
     useQueryClient,
 } from '@tanstack/react-query';
 
+export const useBulkIndividualQuery = (
+    queryKey: QueryKey,
+    queryFn: QueryFunction,
+    bulkQueryOptions: {
+        queryKey: QueryKey;
+    },
+    customOptions?: QueryOptions,
+) => {
+    const { queryKey: bulkQueryKey } = bulkQueryOptions;
+    const queryClient = useQueryClient();
+    const bulkQueryState = queryClient.getQueryState(bulkQueryKey);
+    const enabledByBulkState =
+        bulkQueryState?.status !== 'loading' ||
+        !!bulkQueryState?.dataUpdateCount ||
+        !!bulkQueryState?.errorUpdateCount;
+
+    const queryResult = useQuery(queryKey, queryFn, {
+        ...customOptions,
+        enabled: enabledByBulkState && (customOptions as any)?.enabled,
+    });
+
+    return queryResult;
+};
+
 export const useBulkQuery = (
     queryKey: QueryKey,
     queryFn: QueryFunction,
