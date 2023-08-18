@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "target": "ES2021",
+        "lib": ["ES2021", "DOM"],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "importHelpers": true,
+        "jsx": "react",
+        "sourceMap": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "resolveJsonModule": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "allowJs": false,
+        "esModuleInterop": true,
+        "baseUrl": ".",
+        "outDir": "dist"
+    },
+    "include": ["src/**/*"]
+}
