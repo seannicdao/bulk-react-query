@@ -31,10 +31,24 @@ export const useBulkQuery = (
                 });
             } else {
                 individualQueryKeys.forEach((individualQueryKey) => {
-                    queryClient.setQueryData(individualQueryKey, undefined);
+                    const individualQueryValue = queryClient.getQueryData(individualQueryKey);
+                    if (!individualQueryValue) {
+                        queryClient.setQueryData(individualQueryKey, undefined);
+                    }
                 });
             }
+
+            return () => {
+                individualQueryKeys.forEach((individualQueryKey) => {
+                    const individualQueryValue = queryClient.getQueryData(individualQueryKey);
+                    if (!individualQueryValue) {
+                        queryClient.resetQueries(individualQueryKey, undefined);
+                    }
+                });
+            };
         }
+
+        return () => {};
     }, [enabled, queryResult.data]);
 
     return queryResult;

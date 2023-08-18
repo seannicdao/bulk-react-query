@@ -18,12 +18,24 @@ var useBulkQuery = function (queryKey, queryFn, inidividualQueryOptions, customO
             }
             else {
                 individualQueryKeys.forEach(function (individualQueryKey) {
-                    queryClient.setQueryData(individualQueryKey, undefined);
+                    var individualQueryValue = queryClient.getQueryData(individualQueryKey);
+                    if (!individualQueryValue) {
+                        queryClient.setQueryData(individualQueryKey, undefined);
+                    }
                 });
             }
+            return function () {
+                individualQueryKeys.forEach(function (individualQueryKey) {
+                    var individualQueryValue = queryClient.getQueryData(individualQueryKey);
+                    if (!individualQueryValue) {
+                        queryClient.resetQueries(individualQueryKey, undefined);
+                    }
+                });
+            };
         }
+        return function () { };
     }, [enabled, queryResult.data]);
     return queryResult;
 };
 exports.useBulkQuery = useBulkQuery;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=queries.js.map

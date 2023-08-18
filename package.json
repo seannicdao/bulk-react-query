@@ -7,10 +7,12 @@
         "url": "https://linkedin.com/in/seannicdao/"
     },
     "license": "MIT",
+    "main": "./dist/queries.cjs.js",
+    "module": "./dist/queries.es.js",
     "scripts": {
         "husky:precommit": "lint-staged",
         "prepare": "husky install",
-        "build": "tsc --outDir dist --sourceMap",
+        "build": "rm -rf dist/* && tsc --outDir dist --sourceMap",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
