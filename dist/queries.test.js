@@ -40,16 +40,7 @@ var jsx_runtime_1 = require("react/jsx-runtime");
 var react_1 = require("@testing-library/react");
 var queries_1 = require("./queries");
 var react_query_1 = require("@tanstack/react-query");
-var queryClient = new react_query_1.QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-            refetchOnMount: false,
-            refetchOnReconnect: false,
-            staleTime: 1000 * 60 * 5, // 5 minutes
-        },
-    },
-});
+var queryClient = new react_query_1.QueryClient();
 var ReactQueryWrapper = function (_a) {
     var children = _a.children;
     return ((0, jsx_runtime_1.jsx)(react_query_1.QueryClientProvider, { client: queryClient, children: children }));

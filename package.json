@@ -12,7 +12,7 @@
     "scripts": {
         "husky:precommit": "lint-staged",
         "prepare": "husky install",
-        "build": "rm -rf dist/* && tsc --outDir dist --sourceMap --jsx react-jsx",
+        "build": "rm -rf dist/* && tsc src/* --outDir dist --sourceMap --jsx react-jsx",
         "test": "jest src"
     },
     "dependencies": {

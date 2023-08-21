@@ -4,16 +4,7 @@ import { useBulkQuery, useBulkIndividualQuery } from './queries';
 import { QueryClient, QueryClientProvider, QueryKey } from '@tanstack/react-query';
 import { ReactNode } from 'react';
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-            refetchOnMount: false,
-            refetchOnReconnect: false,
-            staleTime: 1000 * 60 * 5, // 5 minutes
-        },
-    },
-});
+const queryClient = new QueryClient();
 const ReactQueryWrapper = ({ children }: { children: ReactNode }) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 );

@@ -7,6 +7,13 @@ import {
     useQueryClient,
 } from '@tanstack/react-query';
 
+const defaultQueryOptions = {
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+};
+
 export const useBulkIndividualQuery = (
     queryKey: QueryKey,
     queryFn: QueryFunction,
@@ -24,8 +31,9 @@ export const useBulkIndividualQuery = (
         !!bulkQueryState?.errorUpdateCount;
 
     const queryResult = useQuery(queryKey, queryFn, {
-        ...customOptions,
         enabled: enabledByBulkState && (customOptions as any)?.enabled,
+        ...defaultQueryOptions,
+        ...customOptions,
     });
 
     return queryResult;
@@ -43,7 +51,7 @@ export const useBulkQuery = (
     const { enabled = true } = (customOptions ?? {}) as any;
     const { queryKeys: individualQueryKeys, accessorFn: individualQueryDataAccessorFn } =
         inidividualQueryOptions;
-    const queryResult = useQuery(queryKey, queryFn, customOptions);
+    const queryResult = useQuery(queryKey, queryFn, { ...defaultQueryOptions, ...customOptions });
 
     const queryClient = useQueryClient();
     useEffect(() => {
