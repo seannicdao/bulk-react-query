@@ -6,7 +6,7 @@
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "importHelpers": true,
-        "jsx": "react",
+        "jsx": "react-jsx",
         "sourceMap": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,

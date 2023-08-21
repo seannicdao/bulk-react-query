@@ -34,7 +34,7 @@ var useBulkQuery = function (queryKey, queryFn, inidividualQueryOptions, customO
         if (enabled) {
             if (queryResult.data) {
                 individualQueryKeys.forEach(function (individualQueryKey) {
-                    var individualValue = individualQueryDataAccessorFn(queryResult.data);
+                    var individualValue = individualQueryDataAccessorFn(queryResult.data, individualQueryKey);
                     queryClient.setQueryData(individualQueryKey, individualValue);
                 });
             }

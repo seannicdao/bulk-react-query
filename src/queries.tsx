@@ -36,7 +36,7 @@ export const useBulkQuery = (
     queryFn: QueryFunction,
     inidividualQueryOptions: {
         queryKeys: QueryKey[];
-        accessorFn: (data: any) => any;
+        accessorFn: (data: any, queryKey: QueryKey) => any;
     },
     customOptions?: QueryOptions,
 ) => {
@@ -50,7 +50,10 @@ export const useBulkQuery = (
         if (enabled) {
             if (queryResult.data) {
                 individualQueryKeys.forEach((individualQueryKey) => {
-                    const individualValue = individualQueryDataAccessorFn(queryResult.data);
+                    const individualValue = individualQueryDataAccessorFn(
+                        queryResult.data,
+                        individualQueryKey,
+                    );
                     queryClient.setQueryData(individualQueryKey, individualValue);
                 });
             } else {
